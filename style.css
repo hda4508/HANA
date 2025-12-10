@@ -243,7 +243,8 @@ html, body {
     grid-template-columns: repeat(3, 1fr);
     gap: 26px;
     margin-top: 40px;
-    padding: 20px 130px;
+    padding: 20px 40px;
+    box-sizing: border-box;
 }
 
 .song-card {
@@ -284,8 +285,11 @@ html, body {
 
 .song-img {
     margin-top: 30px;
-    width: 450px;
-    height: 450px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .song-img img {
