@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>HANA HACKER</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;700&family=Orbitron:wght@400;600;700&family=Michroma&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <div id="intro-container">
+        <canvas id="matrix-canvas"></canvas>
+
+        <div class="intro-center">
+            <svg id="intro-logo" viewBox="0 0 1000 200">
+                <text x="150" y="120" font-family="Michroma" font-size="80" fill="#00ff41">HANA HACKER</text>
+                <polygon points="80 120 120 40 130 50 90 130" fill="#00c0ff" />
+                <polygon points="880 120 920 40 930 50 890 130" fill="#00c0ff"
+                    transform="scale(-1,1) translate(-1000,0)" />
+            </svg>
+
+            <div id="terminal-input-box">
+                <span class="prompt">$</span>
+                <span id="start-blink" class="typed">start</span>
+                <span class="cursor">█</span>
+            </div>
+
+            <div class="terminal-hint">(type <b>start</b> to continue)</div>
+        </div>
+    </div>
+
+    <div id="glitch-transition"></div>
+
+    <div id="main-content">
+
+        <header id="os-topbar">
+            <div class="os-left">
+                <div class="os-indicator"></div>
+                <span class="os-title">KOO DAHYE // SYSTEM DASHBOARD v3.9</span>
+            </div>
+
+            <div class="os-right">
+                <span class="sys-light green"></span>
+                <span class="sys-light blue"></span>
+                <span class="sys-light red"></span>
+            </div>
+        </header>
+
+
+        <section id="live-console" class="section">
+            <h2 class="section-title">SYSTEM CONSOLE</h2>
+
+            <div class="console-window panel-glitch">
+                <div id="console-output"></div>
+            </div>
+        </section>
+
+
+        <section id="operator-panel" class="section">
+            <h2 class="section-title neon-title">OPERATOR PROFILE</h2>
+
+            <div class="op-container">
+
+                <div class="panel-hack op-left">
+                    <div class="op-label">[ MODULE : FACE-ID ]</div>
+
+                    <div class="op-photo-box">
+                        <img src="Koo.png" class="op-photo" />
+                        <div class="scanline"></div>
+                    </div>
+
+                    <div class="op-status">STATUS : VERIFIED</div>
+                </div>
+
+                <div class="panel-hack op-right">
+                    <div class="op-label">[ 신원 조회 : IDENTITY SCAN ]</div>
+
+                    <ul class="op-data">
+                        <li><span>이름</span> 구다혜</li>
+                        <li><span>생년월일</span> 2005. 03. 29</li>
+                        <li><span>혈액형</span> B형</li>
+                        <li><span>별자리</span> 양자리</li>
+                        <li><span>거주지</span> 경기도 안양시</li>
+                        <li><span>SNS</span> @aanhinn</li>
+                    </ul>
+
+                    <div class="divider"></div>
+
+                    <div class="op-subtitle">[ SYSTEM TAG ]</div>
+                    <ul class="op-tag">
+                        <li>INTERACTION-FOCUSED</li>
+                        <li>CREATIVE-LOGIC HYBRID</li>
+                        <li>NEON-GREEN SIGNATURE</li>
+                    </ul>
+
+                    <div class="divider"></div>
+
+                    <div class="op-subtitle">[ OPERATOR LOG ]</div>
+                    <ul class="op-log">
+                        <li>최근 접근 기록: 정상</li>
+                        <li>권한 등급: GREEN CLASS</li>
+                        <li>장치 상태: 안정화</li>
+                    </ul>
+
+                    <div class="op-access">ACCESS LEVEL : GREEN CLASS</div>
+                </div>
+
+            </div>
+        </section>
+
+
+<!-- 취미 -->
+        <section id="identity-scan" class="section">
+            <h2 class="section-title">CORE MODULES</h2>
+
+            <div class="scan-grid">
+
+                <div class="scan-card panel-scan">
+                    <span class="scan-label">SOUND MODULE : GUITAR</span>
+                    <h4>가장 소중한 것들 중 하나</h4>
+                    <h4>몇 년째 꾸준히 하는 취미생활</h4>
+                </div>
+
+                <div class="scan-card panel-scan">
+                    <span class="scan-label">KNOWLEDGE MODULE : BOOKS</span>
+                    <h4>여운이 오래 남는 글을 선호하는 편</h4>
+                    <h4>힐링이 필요할 때마다 찾는 편</h4>
+                </div>
+
+                <div class="scan-card panel-scan">
+                    <span class="scan-label">AUDIO MODULE : MUSIC</span>
+                    <h4>일상에 없어서는 안 될 존재</h4>
+                    <h4>다양한 장르를 좋아하는 편</h4>
+                </div>
+
+                <div class="scan-card panel-scan">
+                    <span class="scan-label">VISUAL MODULE : FILM / VIDEO</span>
+                    <h4>감정선이 명확한 캐릭터 서사 선호</h4>
+                    <h4>너를 만난 여름, 점연아온난니 최애</h4>
+                </div>
+
+                <div class="scan-card panel-scan">
+                    <span class="scan-label">SERENITY MODULE : NIGHT & QUIET TIME</span>
+                    <h4>생각 정리, 아이디어 생성, 감정 회복에 가장 효율적</h4>
+                    <h4>혼자일 때 감정 처리 속도 +45% 증가</h4>
+                </div>
+
+            </div>
+        </section>
+
+
+<!-- 기억의 남는 -->
+        <section id="song-log" class="section">
+            <h2 class="section-title">SONG MEMORY LOG : 기억에 남은 트랙들</h2>
+
+            <div class="song-grid">
+
+                <div class="song-card panel-hack">
+                    <span class="song-label">LOG 001</span>
+                    <h4>손혜은 - 클로버</h4>
+                    <div class="song-img"><img src="/1.jpg" /></div>
+                </div>
+
+                <div class="song-card panel-hack">
+                    <span class="song-label">LOG 002</span>
+                    <h4>리오 - 장미유행가</h4>
+                    <div class="song-img"><img src="/2.jpg" /></div>
+                </div>
+
+                <div class="song-card panel-hack">
+                    <span class="song-label">LOG 003</span>
+                    <h4>다섯 - Youth</h4>
+                    <div class="song-img"><img src="/3.jpg" /></div>
+                </div>
+
+                <div class="song-card panel-hack">
+                    <span class="song-label">LOG 004</span>
+                    <h4>曾可妮, 都智文 - falling you</h4>
+                    <div class="song-img"><img src="/4.jpg" /></div>
+                </div>
+
+                <div class="song-card panel-hack">
+                    <span class="song-label">LOG 005</span>
+                    <h4>張遠 - 看著我的眼睛說</h4>
+                    <div class="song-img"><img src="/5.jpg" /></div>
+                </div>
+
+                <div class="song-card panel-hack">
+                    <span class="song-label">LOG 006</span>
+                    <h4>와사비호텔 - 감기가 나을 때까지</h4>
+                    <div class="song-img"><img src="/6.jpg" /></div>
+                </div>
+
+                <div class="song-card panel-hack">
+                    <span class="song-label">LOG 007</span>
+                    <h4>illit - Cherish (My Love)</h4>
+                    <div class="song-img"><img src="/7.jpg" /></div>
+                </div>
+
+                <div class="song-card panel-hack">
+                    <span class="song-label">LOG 008</span>
+                    <h4>illit - Almond Chocolate</h4>
+                    <div class="song-img"><img src="/8.jpg" /></div>
+                </div>
+
+                <div class="song-card panel-hack">
+                    <span class="song-label">LOG 009</span>
+                    <h4>illit - Toki Yo Tomare</h4>
+                    <div class="song-img"><img src="/9.jpg" /></div>
+                </div>
+
+            </div>
+        </section>
+
+        <div id="timeline-wrapper">
+            <section id="vertical-project-timeline">
+
+                <div class="project-block">
+                    <span class="p-date">2025.09 - 2025.11</span>
+                    <h2 class="p-title">
+                        [COPS]
+                    </h2>
+                    <p class="p-desc">
+                        ‘COPS’는 군중이 몰릴 장소를 사전에 예측하고, 현장에서 신속한 대피를 유도하는 군중 안전 서비스입니다.
+                        이태원 압사 사고처럼 예방과 대응 실패로 인한 참사를 막기 위해, 경찰과 시민 모두가 쉽게 사용할 수 있도록
+                        개발되었으며, 졸업작품 학과 우수작으로 선정되었습니다.
+                    </p>
+                    <div class="p-img">
+                        <img src="/11.png" alt="COPS thumbnail">
+                    </div>
+                </div>
+
+                <div class="project-block">
+                    <span class="p-date">2025.05 - 2025.06</span>
+                    <h2 class="p-title">
+                        [LOM]
+                    </h2>
+                    <p class="p-desc">
+                        ‘LOM’은 책 속 문장을 기반으로 장면을 재해석하고, 이를 영화·드라마 같은 시각적 미디어로 확장하는 프로젝트입니다.
+                        텍스트가 가진 감정과 분위기를 시각적 언어로 옮겨 담아, 글에서 장면으로 이어지는 경험을 누구나 쉽게 이해할 수 있도록 구성했으며,
+                        기획·디자인·구현 모두 직접 수행했습니다.
+                    </p>
+                    <div class="p-img">
+                        <img src="/22.png" alt="FROM ME thumbnail">
+                    </div>
+                </div>
+
+                <div class="project-block">
+                    <span class="p-date">2025.03 - 2025.04</span>
+                    <h2 class="p-title">
+                        [ONE PAGE]
+                    </h2>
+                    <p class="p-desc">
+                        ‘onepage’는 책 속 장면을 한 페이지로 정리해 보여주는 아카이브 프로젝트입니다. 각 장면의 핵심 내용을 직관적으로 전달할 수
+                        있도록 구성했으며, 텍스트와 이미지를 조합해 사용자가 책의 분위기와 흐름을 한눈에 이해할 수 있게 설계했습니다.
+                        기획·디자인·구현 과정까지 모두 직접 수행했습니다.
+                    </p>
+                    <div class="p-img">
+                        <img src="/33.png" alt="FROM ME thumbnail">
+                    </div>
+                </div>
+
+                <div class="project-block">
+                    <span class="p-date">2025.09 - 2025.12</span>
+                    <h2 class="p-title">
+                        [GLLIT]
+                    </h2>
+                    <p class="p-desc">
+                        ‘GLLIT’는 그룹 ILLIT 의 팬의 입장에서 흩어진 정보를 찾고 소통할 수 있는 하나의 플랫폼 프로젝트입니다.
+                        팬들이 편하게 이야기하고 좋아하는 그룹의 정보를 한곳에서 모아 확인할 수 있는 커뮤니티를 만들고자 하였습니다.
+                        기획·디자인·구현 과정까지 모두 직접 수행했습니다.
+                    </p>
+                    <div class="p-img">
+                        <img src="/44.png" alt="FROM ME thumbnail">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+<!-- end -->
+        <section id="connect-exec" class="section">
+            <h2 class="section-title">CONNECT // EXECUTE</h2>
+
+            <div class="exec-terminal panel-glitch">
+                <p>$ connect koo_dahye</p>
+                <p>$ github — open</p>
+                <p>$ mailto: hda4508@gmail.com</p>
+
+                <div id="end-input">
+                    <span class="prompt">$</span>
+                    <span id="end-blink"></span>
+                    <span class="cursor">█</span>
+                </div>
+
+                <p class="end-hint">(type <b>end</b> to shutdown)</p>
+            </div>
+        </section>
+
+        <footer id="footer-end">
+            END OF TRANSMISSION
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
