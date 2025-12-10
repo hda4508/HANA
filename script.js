@@ -311,38 +311,3 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", updateLine);
     window.addEventListener("load", updateLine);
 })();
-
-document.querySelectorAll(".project-block").forEach(block => {
-    const line = document.createElement("div");
-    line.className = "project-reveal-line";
-    block.appendChild(line);
-
-    const title = block.querySelector(".p-title");
-
-    const obs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                line.style.width = "100%";
-
-                // 타이핑 효과 (기존 텍스트 유지)
-                const text = title.textContent.trim();
-                title.textContent = "";
-                let i = 0;
-
-                function type() {
-                    if (i <= text.length) {
-                        title.textContent = text.slice(0, i);
-                        i++;
-                        setTimeout(type, 25);
-                    }
-                }
-                type();
-
-                obs.disconnect();
-            }
-        });
-    }, { threshold: 0.5 });
-
-    obs.observe(block);
-});
-
