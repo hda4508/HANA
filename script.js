@@ -1,3 +1,39 @@
+const typeSound = new Audio("./sounds/typing.mp3");
+const enterSound = new Audio("./sounds/enter.mp3");
+const hoverSound = new Audio("./sounds/hover.mp3");
+
+typeSound.volume = 0.15;
+enterSound.volume = 0.25;
+hoverSound.volume = 0.2;
+
+let soundEnabled = false;
+
+window.addEventListener("click", () => {
+    if (!soundEnabled) {
+        [typeSound, enterSound, hoverSound].forEach(snd => {
+            snd.play().catch(() => {});
+            snd.pause();
+            snd.currentTime = 0;
+        });
+        soundEnabled = true;
+        console.log("🔊 SOUND ENABLED (CLICK)");
+    }
+}, { once: true });
+
+window.addEventListener("keydown", () => {
+    if (!soundEnabled) {
+        [typeSound, enterSound, hoverSound].forEach(snd => {
+            snd.play().catch(() => {});
+            snd.pause();
+            snd.currentTime = 0;
+        });
+        soundEnabled = true;
+        console.log("🔊 SOUND ENABLED (KEYBOARD)");
+    }
+}, { once: true });
+
+
+
 const canvas = document.getElementById("matrix-canvas");
 const ctx = canvas.getContext("2d");
 
@@ -14,7 +50,7 @@ let columns = Math.floor(window.innerWidth / fontSize);
 let drops = Array(columns).fill(1);
 
 function drawMatrix() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillStyle = "rgba(0,0,0,0.05)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "#00ff41";
@@ -24,11 +60,15 @@ function drawMatrix() {
         const text = letters[Math.floor(Math.random() * letters.length)];
         ctx.fillText(text, i * fontSize, y * fontSize);
 
-        if (y * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        if (y * fontSize > canvas.height && Math.random() > 0.975)
+            drops[i] = 0;
+
         drops[i]++;
     });
 }
 setInterval(drawMatrix, 40);
+
+
 
 const startBlink = document.getElementById("start-blink");
 const hint = document.querySelector(".terminal-hint");
@@ -38,10 +78,13 @@ let firstInput = false;
 
 startBlink.textContent = "";
 
-
 document.addEventListener("keydown", (e) => {
-
     if (document.body.classList.contains("entered")) return;
+
+    if (soundEnabled && (e.key.length === 1 || e.key === "Backspace")) {
+        typeSound.currentTime = 0;
+        typeSound.play();
+    }
 
     if (!firstInput) {
         buffer = "";
@@ -59,9 +102,14 @@ document.addEventListener("keydown", (e) => {
         startBlink.textContent = buffer;
     }
 
-    if (e.key === "Enter") validateStart();
+    if (e.key === "Enter") {
+        if (soundEnabled) {
+            enterSound.currentTime = 0;
+            enterSound.play();
+        }
+        validateStart();
+    }
 });
-
 
 function validateStart() {
     if (buffer === "start") {
@@ -76,6 +124,8 @@ function validateStart() {
     }
 }
 
+
+
 function runIntroExit() {
     const intro = document.getElementById("intro-container");
     const glitch = document.getElementById("glitch-transition");
@@ -83,28 +133,20 @@ function runIntroExit() {
 
     document.body.classList.add("entered");
 
-    setTimeout(() => {
-        glitch.style.animation = "glitchFlash .5s";
-    }, 200);
-
-    setTimeout(() => {
-        intro.style.opacity = 0;
-        intro.style.transition = "1s";
-    }, 600);
+    setTimeout(() => glitch.style.animation = "glitchFlash .5s", 200);
+    setTimeout(() => intro.style.opacity = 0, 600);
 
     setTimeout(() => {
         intro.style.display = "none";
         main.style.opacity = 1;
         main.style.pointerEvents = "auto";
-
-
         window.scrollTo(0, 0);
     }, 1500);
 
-    setTimeout(() => autoConsole(), 1800);
-
+    setTimeout(autoConsole, 1800);
     setInterval(spawnErrorLog, 6000);
 }
+
 
 const consoleOutput = document.getElementById("console-output");
 
@@ -121,8 +163,7 @@ const consoleLogs = [
 let logIndex = 0;
 
 function autoConsole() {
-    if (!consoleOutput) return;
-    if (logIndex >= consoleLogs.length) return;
+    if (!consoleOutput || logIndex >= consoleLogs.length) return;
 
     const line = document.createElement("p");
     line.textContent = consoleLogs[logIndex];
@@ -133,6 +174,8 @@ function autoConsole() {
     logIndex++;
     setTimeout(autoConsole, 900 + Math.random() * 400);
 }
+
+
 
 function spawnErrorLog() {
     const messages = [
@@ -150,7 +193,6 @@ function spawnErrorLog() {
     div.style.left = Math.random() * 40 + "px";
 
     document.body.appendChild(div);
-
     setTimeout(() => div.remove(), 4000);
 }
 
@@ -167,22 +209,25 @@ document.querySelectorAll(".panel-scan").forEach(card => {
     });
 });
 
-const sections = document.querySelectorAll('.timeline-content');
+
+
+const sections = document.querySelectorAll(".timeline-content");
 
 function checkVisible() {
     const trigger = window.innerHeight * 0.65;
 
     sections.forEach(sec => {
         const rect = sec.parentElement.getBoundingClientRect().top;
-
-        if(rect < trigger) sec.classList.add('active');
+        if (rect < trigger) sec.classList.add("active");
     });
 }
 
-window.addEventListener('scroll', checkVisible);
-window.addEventListener('load', checkVisible);
+window.addEventListener("scroll", checkVisible);
+window.addEventListener("load", checkVisible);
 
-const observer = new IntersectionObserver((entries) => {
+
+
+const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add("reveal");
     });
@@ -197,16 +242,19 @@ document.querySelectorAll(`
     .console-window,
     .scan-grid,
     .profile-os-grid
-`).forEach(el => observer.observe(el));
+`).forEach(el => revealObserver.observe(el));
+
 
 
 document.querySelectorAll(".panel-archive, .panel-module, .panel-log").forEach(el => {
     el.addEventListener("mouseenter", () => {
-        const snd = new Audio("https://cdn.pixabay.com/download/audio/2021/10/12/audio_5ef95c0f2b.mp3?filename=ui-2060.mp3");
-        snd.volume = 0.2;
-        snd.play();
+        if (soundEnabled) {
+            hoverSound.currentTime = 0;
+            hoverSound.play();
+        }
     });
 });
+
 
 
 const endInputBox = document.getElementById("end-input");
@@ -217,7 +265,11 @@ let endBuffer = "";
 document.addEventListener("keydown", (e) => {
 
     if (!document.body.classList.contains("entered")) return;
-    if (!endInputBox) return;
+
+    if (soundEnabled && (e.key.length === 1 || e.key === "Backspace")) {
+        typeSound.currentTime = 0;
+        typeSound.play();
+    }
 
     if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) {
         endBuffer += e.key.toLowerCase();
@@ -229,7 +281,13 @@ document.addEventListener("keydown", (e) => {
         endInputBox.innerHTML = `<span class="prompt">$</span> ${endBuffer}`;
     }
 
-    if (e.key === "Enter") handleEnd();
+    if (e.key === "Enter") {
+        if (soundEnabled) {
+            enterSound.currentTime = 0;
+            enterSound.play();
+        }
+        handleEnd();
+    }
 });
 
 function handleEnd() {
@@ -243,30 +301,12 @@ function handleEnd() {
         }, 300);
 
         setTimeout(() => location.reload(), 1300);
-
     } else {
         endHint.textContent = "ERROR: Unknown Command";
         endHint.style.color = "#ff3b3b";
     }
 }
 
-const tlScreens = document.querySelectorAll(".timeline-screen");
-const tlContents = document.querySelectorAll(".timeline-content");
-
-function activateTimeline() {
-    const triggerLine = window.innerHeight * 0.55;
-
-    tlScreens.forEach((screen, index) => {
-        const rect = screen.getBoundingClientRect();
-
-        if (rect.top < triggerLine && rect.bottom > triggerLine) {
-            tlContents[index].classList.add("active");
-        }
-    });
-}
-
-window.addEventListener("scroll", activateTimeline);
-window.addEventListener("load", activateTimeline);
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -274,19 +314,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("show");
-            } else {
-                entry.target.classList.remove("show");
-            }
+            if (entry.isIntersecting) entry.target.classList.add("show");
+            else entry.target.classList.remove("show");
         });
     }, { threshold: 0.6 });
 
     projects.forEach(p => observer.observe(p));
 });
 
+
+
 (function () {
-    const line = document.querySelector("#timeline-wrapper::before");
     const wrapper = document.getElementById("timeline-wrapper");
 
     let dynamicLine = document.createElement("div");
